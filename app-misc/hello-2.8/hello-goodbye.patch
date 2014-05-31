@@ -1,0 +1,12 @@
+diff -u -r hello-2.8.orig/src/hello.c hello-2.8/src/hello.c
+--- hello-2.8.orig/src/hello.c	2011-03-22 18:10:38.000000000 +0000
++++ hello-2.8/src/hello.c	2012-01-23 22:55:14.000000000 +0000
+@@ -125,7 +125,7 @@
+     puts (greeting_msg);
+ 
+   else if (g == greet_gnu)
+-    puts (_("Hello, world!"));
++    puts (_("Goodbye, cruel world!"));
+   
+   else {
+     /* No need for this impossible message to be translated.  */

@@ -1,0 +1,18 @@
+--- glib-2.50.2/gio/inotify/inotify-kernel.c.orig       2017-04-09 22:58:56.878029892 +0000
++++ glib-2.50.2/gio/inotify/inotify-kernel.c    2017-04-09 23:03:16.310785906 +0000
+@@ -33,10 +33,14 @@
+ #include <sys/inotify.h>
+ #include <glib/glib-unix.h>
+ 
++#ifdef HAVE_SYS_FILIO_H
++# include <sys/filio.h>
++#endif
++
+ #include "glib-private.h"
+ 
+ /* From inotify(7) */
+-#define MAX_EVENT_SIZE       (sizeof(struct inotify_event) + NAME_MAX + 1)
++#define MAX_EVENT_SIZE       (sizeof(struct inotify_event) + FILENAME_MAX + 1)
+ 
+ /* Amount of time to sleep on receipt of uninteresting events */
+ #define BOREDOM_SLEEP_TIME   (100 * G_TIME_SPAN_MILLISECOND)

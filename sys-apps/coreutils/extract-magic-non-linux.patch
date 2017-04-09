@@ -1,0 +1,20 @@
+--- a/src/extract-magic 2017-04-09 20:45:22.757976945 +0000
++++ b/src/extract-magic 2017-04-09 20:47:52.303027097 +0000
+@@ -129,7 +129,8 @@
+   $emit_magic
+     or print "static inline int\n"
+       . "is_local_fs_type (unsigned long int magic)\n"
+-      . "{\n  switch (magic)\n    {\n";
++      . "{\n  switch (magic)\n    {\n"
++      . "#if defined __linux__\n";
+ 
+   while (defined (my $line = <FH>))
+     {
+@@ -154,7 +155,7 @@
+ #endif
+ EOF
+   $emit_magic
+-    or printf "      default: return -1;\n    }\n}\n";
++    or printf "#endif\n      default: return -1;\n    }\n}\n";
+ 
+   close FH;

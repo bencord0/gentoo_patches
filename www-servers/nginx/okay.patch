@@ -1,0 +1,48 @@
+--- a/src/http/ngx_http_header_filter_module.c  2017-11-25 05:20:45.722662959 +0000
++++ b/src/http/ngx_http_header_filter_module.c  2017-11-25 05:19:51.300866523 +0000
+@@ -53,7 +53,7 @@
+
+ static ngx_str_t ngx_http_status_lines[] = {
+
+-    ngx_string("200 OK"),
++    ngx_string("200 I'm okay"),
+     ngx_string("201 Created"),
+     ngx_string("202 Accepted"),
+     ngx_null_string,  /* "203 Non-Authoritative Information" */
+--- a/src/http/modules/ngx_http_proxy_module.c  2017-11-25 06:08:07.842825769 +0000
++++ b/src/http/modules/ngx_http_proxy_module.c  2017-11-25 06:08:17.782757757 +0000
+@@ -1692,6 +1692,7 @@
+     ngx_int_t              rc;
+     ngx_http_upstream_t   *u;
+     ngx_http_proxy_ctx_t  *ctx;
++    u_char                  *okay = "200 I'm okay";
+
+     ctx = ngx_http_get_module_ctx(r, ngx_http_proxy_module);
+
+@@ -1740,7 +1741,12 @@
+
+     u->headers_in.status_n = ctx->status.code;
+
+-    len = ctx->status.end - ctx->status.start;
++    if (ctx->status.code == 200) {
++        len = strlen(okay);
++    } else {
++        len = ctx->status.end - ctx->status.start;
++    }
++
+     u->headers_in.status_line.len = len;
+
+     u->headers_in.status_line.data = ngx_pnalloc(r->pool, len);
+@@ -1748,7 +1754,11 @@
+         return NGX_ERROR;
+     }
+
+-    ngx_memcpy(u->headers_in.status_line.data, ctx->status.start, len);
++    if (ctx->status.code == 200) {
++        ngx_memcpy(u->headers_in.status_line.data, okay, len);
++    } else {
++        ngx_memcpy(u->headers_in.status_line.data, ctx->status.start, len);
++    }
+
+     ngx_log_debug2(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
+                    "http proxy status %ui \"%V\"",

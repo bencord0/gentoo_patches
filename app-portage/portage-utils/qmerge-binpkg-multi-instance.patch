@@ -1,5 +1,5 @@
---- a/qmerge.c	2018-03-25 00:24:49.000000000 +0000
-+++ b/qmerge.c	2018-03-25 00:24:53.000000000 +0000
+--- a/qmerge.c	2018-03-25 00:40:50.000000000 +0000
++++ b/qmerge.c	2018-03-25 00:44:20.000000000 +0000
 @@ -30,8 +30,6 @@
  /* #define BUSYBOX "/bin/busybox" */
  #define BUSYBOX ""
@@ -36,7 +36,7 @@
  	int i;
  	char **ARGV;
  	int ARGC;
-@@ -901,20 +901,28 @@
+@@ -901,16 +901,20 @@
  	 *      tarball directly rather than unpacking it first. */
  
  	/* split the tbz and xpak data */
@@ -47,9 +47,6 @@
 +	xasprintf(&tarbz2, "%s.tar.bz2", pkg->PF);
 +	xasprintf(&xpak, "%s.xpak", pkg->PF);
 +
-+	warn("tbz2x1: %s", tbz2);
-+	warn("tarbz2: %s", tarbz2);
-+	warn("xpak: %s", xpak);
 +	if (run_applet_l("qtbz2", "-s", tbz2, tarbz2, xpak, NULL) != 0)
 +		err("`qtbz2 -s %s %s %s` failed", tbz2, tarbz2, xpak);
  
@@ -66,12 +63,7 @@
  
  	/* extrct the binary package data */
  	mkdir("image", 0755);
- 	snprintf(buf, sizeof(buf), BUSYBOX " tar -jx%sf %s.tar.bz2 -C image/", ((verbose > 1) ? "v" : ""), pkg->PF);
-+	warn("buf3: %s", buf);
- 	xsystem(buf);
- 	fflush(stdout);
- 
-@@ -1272,7 +1280,8 @@
+@@ -1272,7 +1276,8 @@
  static void
  pkg_fetch(int level, const depend_atom *atom, const struct pkg_t *pkg)
  {
@@ -81,7 +73,7 @@
  
  	/* qmerge -pv patch */
  	if (pretend) {
-@@ -1283,57 +1292,51 @@
+@@ -1283,57 +1288,51 @@
  	}
  
  	/* check to see if file exists and it's checksum matches */
@@ -160,7 +152,7 @@
  		pkg_merge(0, atom, pkg);
  		return;
  	}
-@@ -1372,6 +1375,8 @@
+@@ -1372,6 +1371,8 @@
  	if (pkg->REPO[0])
  		if (strcmp(pkg->REPO, "gentoo") != 0)
  			printf(" %sRepo%s:%s %s\n", DKGREEN, YELLOW, NORM, pkg->REPO);
@@ -169,15 +161,7 @@
  
  	if ((p = best_version(pkg->CATEGORY, atom->PN)) != NULL) {
  		if (*p) {
-@@ -1525,6 +1530,7 @@
- 		p += 2;
- 
- 		if (*buf) {
-+			warn("buf: %s", buf);
- 			/* we dont need all the info */
- 			if (strcmp(buf, "RDEPEND") == 0)
- 				strncpy(pkg->RDEPEND, p, sizeof(Pkg.RDEPEND));
-@@ -1555,6 +1561,9 @@
+@@ -1555,6 +1556,9 @@
  				strncpy(pkg->MD5, p, sizeof(Pkg.MD5));
  			if (strcmp(buf, "SHA1") == 0)
  				strncpy(pkg->SHA1, p, sizeof(Pkg.SHA1));
@@ -187,7 +171,7 @@
  		}
  	}
  	fclose(fp);
-@@ -1731,6 +1740,7 @@
+@@ -1731,6 +1735,7 @@
  				break;
  			case 'P':
  				if (strcmp(buf, "PF") == 0) strncpy(Pkg.PF, p, sizeof(Pkg.PF));

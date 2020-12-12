@@ -1,0 +1,81 @@
+diff --git a/catalyst/defaults.py b/catalyst/defaults.py
+index 705ae931..f3143cf4 100644
+--- a/catalyst/defaults.py
++++ b/catalyst/defaults.py
+@@ -31,47 +31,35 @@ valid_config_file_values.extend([ "distcc", "envscript",
+ 	"compression_mode", "compressor_options", "decompressor_search_order",
+ 	])
+ 
+-# set our base defaults here to keep
+-# them in one location.
+-BASE_GENTOO_DIR = "/var/gentoo"
+-REPODIR = BASE_GENTOO_DIR + "/repos"
+-DISTDIR = BASE_GENTOO_DIR + "/distfiles"
+-PKGDIR = BASE_GENTOO_DIR + "/packages"
+-MAINREPO = "gentoo"
+-PORTDIR = REPODIR + "/" + MAINREPO
+-
+-confdefaults={
+-	"archdir": "%(PythonDir)s/arch",
+-	"comp_prog": COMPRESSOR_PROGRAM_OPTIONS[TAR],
+-	"compression_mode": 'lbzip2',
+-	"compressor_arch": None,
+-	"compressor_options": XATTRS_OPTIONS[TAR],
+-	"decomp_opt": DECOMPRESSOR_PROGRAM_OPTIONS[TAR],
+-	"decompressor_search_order": DECOMPRESSOR_SEARCH_ORDER,
+-	"distdir": DISTDIR[:],
+-	"hash_function": "crc32",
+-	"icecream": "/var/cache/icecream",
+-	'list_xattrs_opt': LIST_XATTRS_OPTIONS[TAR],
+-	"local_overlay": REPODIR[:] + "/local",
+-	"port_conf": "/etc/portage",
+-	"make_conf": "%(port_conf)s/make.conf",
+-	"options": set(),
+-	"packagedir": PKGDIR[:],
+-	"portdir": PORTDIR[:],
+-	"port_tmpdir": "/var/tmp/portage",
+-	"PythonDir": "./catalyst",
+-	"repo_basedir": REPODIR[:],
+-	"repo_name": MAINREPO[:],
+-	"sed": "sed",
+-	"sharedir": "/usr/share/catalyst",
+-	"shdir": "/usr/share/catalyst/targets/",
+-	"snapshot_cache": "/var/tmp/catalyst/snapshot_cache",
+-	"snapshot_name": "%(repo_name)s-",
+-	"source_matching": "strict",
+-	"storedir": "/var/tmp/catalyst",
+-	"target_distdir": DISTDIR[:],
+-	"target_pkgdir": PKGDIR[:],
+-	}
++confdefaults = {
++    "comp_prog": COMPRESSOR_PROGRAM_OPTIONS['linux'],
++    "compression_mode": 'lbzip2',
++    "compressor_arch": None,
++    "compressor_options": XATTRS_OPTIONS['linux'],
++    "decomp_opt": DECOMPRESSOR_PROGRAM_OPTIONS['linux'],
++    "decompressor_search_order": DECOMPRESSOR_SEARCH_ORDER,
++    "distdir": "/var/cache/distfiles",
++    "icecream": "/var/cache/icecream",
++    'list_xattrs_opt': LIST_XATTRS_OPTIONS['linux'],
++    "local_overlay": "/var/db/repos/local",
++    "port_conf": "/etc/portage",
++    "make_conf": "%(port_conf)s/make.conf",
++    "options": set(),
++    "pkgdir": "/var/cache/binpkgs",
++    "portdir": "/var/db/repos/gentoo",
++    "port_tmpdir": "/var/tmp/portage",
++    "PythonDir": "./catalyst",
++    "repo_basedir": "/var/db/repos",
++    "repo_name": "gentoo",
++    "sharedir": "/usr/share/catalyst",
++    "shdir": "/usr/share/catalyst/targets/",
++    "snapshot_cache": "/var/tmp/catalyst/snapshot_cache",
++    "snapshot_name": "%(repo_name)s-",
++    "source_matching": "strict",
++    "storedir": "/var/tmp/catalyst",
++    "target_distdir": "/var/cache/distfiles",
++    "target_pkgdir": "/var/cache/binpkgs",
++}
+ 
+ DEFAULT_CONFIG_FILE = '/etc/catalyst/catalyst.conf'
+ 

@@ -1,0 +1,13 @@
+diff --git a/contrib/dracut/90zfs/module-setup.sh.in b/contrib/dracut/90zfs/module-setup.sh.in
+index 4efc4b018..65d3067ba 100755
+--- a/contrib/dracut/90zfs/module-setup.sh.in
++++ b/contrib/dracut/90zfs/module-setup.sh.in
+@@ -87,7 +87,7 @@ install() {
+ 	BB=`hostid | cut -b 3,4`
+ 	CC=`hostid | cut -b 5,6`
+ 	DD=`hostid | cut -b 7,8`
+-	echo -ne "\\x${DD}\\x${CC}\\x${BB}\\x${AA}" > "${initdir}/etc/hostid"
++	# echo -ne "\\x${DD}\\x${CC}\\x${BB}\\x${AA}" > "${initdir}/etc/hostid"
+ 
+ 	if dracut_module_included "systemd"; then
+ 		mkdir -p "${initdir}/$systemdsystemunitdir/zfs-import.target.wants"

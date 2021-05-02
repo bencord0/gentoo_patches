@@ -1,0 +1,13 @@
+diff --git a/targets/support/kmerge.sh b/targets/support/kmerge.sh
+index fb67aba6..2eaa16bb 100755
+--- a/targets/support/kmerge.sh
++++ b/targets/support/kmerge.sh
+@@ -52,7 +52,7 @@ genkernel_compile() {
+ 	else
+ 		gk_callback_opts=(-qN)
+ 	fi
+-	if [[ -n ${clst_KERNCACHE} ]]; then
++	if [[ -n ${clst_KERNCACHE} && ${cached_kernel_found} = "true" ]]; then
+ 		gk_callback_opts+=(-kb)
+ 	fi
+ 	if [[ -n ${clst_FETCH} ]]; then

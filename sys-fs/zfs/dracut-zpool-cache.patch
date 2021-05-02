@@ -1,0 +1,15 @@
+diff --git a/contrib/dracut/90zfs/module-setup.sh.in b/contrib/dracut/90zfs/module-setup.sh.in
+index b6b86e2ea..beac6080d 100755
+--- a/contrib/dracut/90zfs/module-setup.sh.in
++++ b/contrib/dracut/90zfs/module-setup.sh.in
+@@ -74,10 +74,6 @@ install() {
+ 	inst_hook shutdown 20 "${moddir}/export-zfs.sh"
+
+ 	inst_simple "${moddir}/zfs-lib.sh" "/lib/dracut-zfs-lib.sh"
+-	if [ -e @sysconfdir@/zfs/zpool.cache ]; then
+-		inst @sysconfdir@/zfs/zpool.cache
+-		type mark_hostonly >/dev/null 2>&1 && mark_hostonly @sysconfdir@/zfs/zpool.cache
+-	fi
+
+ 	if [ -e @sysconfdir@/zfs/vdev_id.conf ]; then
+ 		inst @sysconfdir@/zfs/vdev_id.conf

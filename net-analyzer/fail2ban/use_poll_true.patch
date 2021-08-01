@@ -1,0 +1,13 @@
+diff --git a/fail2ban/server/server.py b/fail2ban/server/server.py
+index fcd04a4b..6a8df692 100644
+--- a/fail2ban/server/server.py
++++ b/fail2ban/server/server.py
+@@ -178,7 +178,7 @@ class Server:
+ 			_make_file_path(sock)
+ 			self.__asyncServer = AsyncServer(self.__transm)
+ 			self.__asyncServer.onstart = conf.get('onstart')
+-			self.__asyncServer.start(sock, force)
++			self.__asyncServer.start(sock, force, use_poll=True)
+ 		except AsyncServerException as e:
+ 			logSys.error("Could not start server: %s", e)
+ 

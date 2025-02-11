@@ -1,0 +1,15 @@
+diff --git a/lib/portage/package/ebuild/fetch.py b/lib/portage/package/ebuild/fetch.py
+index 0ea5f57a9..9e7cc05c0 100644
+--- a/lib/portage/package/ebuild/fetch.py
++++ b/lib/portage/package/ebuild/fetch.py
+@@ -971,9 +971,7 @@ async def async_fetch(
+ 
+     check_config_instance(mysettings)
+ 
+-    custommirrors = grabdict(
+-        os.path.join(mysettings["PORTAGE_CONFIGROOT"], CUSTOM_MIRRORS_FILE), recursive=1
+-    )
++    custommirrors = {}
+ 
+     if listonly or ("distlocks" not in features):
+         use_locks = 0

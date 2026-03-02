@@ -1,14 +1,19 @@
 diff --git a/contrib/dracut/90zfs/module-setup.sh.in b/contrib/dracut/90zfs/module-setup.sh.in
-index b6b86e2ea..fd57bea48 100755
+index 130d94c70..bbb8a7dcd 100755
 --- a/contrib/dracut/90zfs/module-setup.sh.in
 +++ b/contrib/dracut/90zfs/module-setup.sh.in
-@@ -88,9 +88,6 @@ install() {
- 	if [ -f @sysconfdir@/hostid ]; then
- 		inst @sysconfdir@/hostid
- 		type mark_hostonly >/dev/null 2>&1 && mark_hostonly @sysconfdir@/hostid
--	elif HOSTID="$(hostid 2>/dev/null)" && [ "${HOSTID}" != "00000000" ]; then
--		zgenhostid -o "${initdir}@sysconfdir@/hostid" "${HOSTID}"
--		type mark_hostonly >/dev/null 2>&1 && mark_hostonly @sysconfdir@/hostid
- 	fi
+@@ -67,14 +67,6 @@ install() {
+ 		"@sysconfdir@/zfs/zpool.cache" \
+ 		"@sysconfdir@/zfs/vdev_id.conf"
  
+-	# Synchronize initramfs and system hostid
+-	if ! inst_simple -H @sysconfdir@/hostid; then
+-		if HOSTID="$(hostid 2>/dev/null)" && [[ "${HOSTID}" != "00000000" ]]; then
+-			zgenhostid -o "${initdir}@sysconfdir@/hostid" "${HOSTID}"
+-			mark_hostonly @sysconfdir@/hostid
+-		fi
+-	fi
+-
  	if dracut_module_included "systemd"; then
+ 		inst_simple "${systemdsystemunitdir}/zfs-import.target"
+ 		systemctl -q --root "${initdir}" add-wants initrd.target zfs-import.target
